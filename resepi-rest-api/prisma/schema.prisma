@@ -1,0 +1,27 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Resepi {
+  id        Int      @id @default(autoincrement())
+  nama      String
+  deskripsi String?
+  imageUrl  String?
+  bahan     String[]
+  porsi     Int
+  langkah   String[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([createdAt])
+  @@index([nama])
+  @@index([bahan])
+  @@index([porsi])
+  @@map("resepi")
+}
